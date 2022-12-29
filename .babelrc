@@ -1,0 +1,8 @@
+{
+    "presets": ["@babel/preset-env"],
+    "plugins": ["@babel/plugin-transform-runtime"]
+}
+
+/*
+  es un ajuste preestablecido inteligente que le permite usar el último JavaScript sin necesidad de microgestionar qué transformaciones de sintaxis (y opcionalmente, polyfills del navegador) son necesarias para su (s) entorno (s) de destino. ¡Esto hace su vida más fácil y los paquetes de JavaScript más pequeños!
+*/
