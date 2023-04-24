@@ -6,5 +6,11 @@ export const procedures={
     listarRecibo:"listarRecibo",
     editarRecibo:"editarRecibo",
     obtenerReciboPorId:"obtenerReciboPorId",
-    ActualizarContrasena:"ActualizarContrasena"
+    ActualizarContrasena:"ActualizarContrasena",
+    obtenerInquilinosPorUsuario:"obtenerInquilinosPorUsuario",
+    obtenerDireccionCasa:"obtenerDireccionCasa",
+    usuarioPorId:"usuarioPorId"
+
 }
+
+

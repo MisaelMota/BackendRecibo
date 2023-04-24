@@ -14,8 +14,8 @@ export const postRecibo = async (req, res) => {
             .input("id_casa", sql.Int, id_casa)
             .input("recibi_de", sql.Int, recibi_de)
             .input("id_usuario", sql.Int, id_usuario)
-            .execute(procedures.NuevoReciboRecibos,(error,result)=>{
-                res.json(result.recordset[0])
+            .execute(procedures.NuevoReciboRecibos, (error, result) => {
+                res.json(result.recordsets)
             })
         // res.json({ suma_de, concepto_de, fecha, id_casa, recibi_de, id_usuario })
     } catch (error) {
@@ -26,7 +26,7 @@ export const postRecibo = async (req, res) => {
 
 export const editarRecibo = async (req, res) => {
 
-    const { suma_de, concepto_de, fecha, id_casa, recibi_de, id_usuario } = req.body
+    const { suma_de, concepto_de, fecha, id_casa, recibi_de, id_detalle } = req.body
 
     try {
         const pool = await getConnection();
@@ -36,9 +36,9 @@ export const editarRecibo = async (req, res) => {
             .input("fecha", sql.DateTime, fecha)
             .input("id_casa", sql.Int, id_casa)
             .input("recibi_de", sql.Int, recibi_de)
-            .input("id_detalle", sql.Int, id_usuario)
-            .execute(procedures.editarRecibo,(error,result)=>{
-                res.json(result.recordset[0])
+            .input("id_detalle", sql.Int, id_detalle)
+            .execute(procedures.editarRecibo, (error, result) => {
+                res.json(result)
             })
         // res.json({ suma_de, concepto_de, fecha, id_casa, recibi_de, id_usuario })
     } catch (error) {
@@ -49,16 +49,22 @@ export const editarRecibo = async (req, res) => {
 
 
 export const listarRecibo = async (req, res) => {
-    const id_usuario=req.body
+    const id_usuario = req.body.id_usuario
 
     try {
-        const pool=await getConnection();
-        await pool.request()
-        .input("id_usuario",sql.Int,id_usuario)
-        .execute(procedures.listarRecibo,(error,result)=>{
-            res.json(result.recordset[0])
-        })
-        
+        const pool = await getConnection();
+        pool.request()
+            .input("id_usuario", sql.Int, id_usuario)
+            .execute(procedures.listarRecibo, (error, result) => {
+                if (error) {
+                    res.json("ha ocurrido un error")
+                }
+                else {
+                    res.json(result.recordset)
+                }
+
+            })
+
     } catch (error) {
         res.status(500)
         res.send(error.message)
@@ -67,21 +73,67 @@ export const listarRecibo = async (req, res) => {
 }
 
 export const obtenerReciboPorId = async (req, res) => {
-    const id_detalle=req.body
+    const id_detalle = req.body
 
     try {
-        const pool=await getConnection();
+        const pool = await getConnection();
         await pool.request()
-        .input("id_detalle",sql.Int,id_detalle)
-        .execute(procedures.listarRecibo,(error,result)=>{
-            res.json(result.recordset[0])
-        })
-        
+            .input("id_detalle", sql.Int, id_detalle)
+            .execute(procedures.obtenerReciboPorId, (error, result) => {
+                if (error) {
+                    res.json("ha ocurrido un error")
+                }
+                else {
+                    res.json(result.recordset)
+                }
+            })
+
     } catch (error) {
         res.status(500)
         res.send(error.message)
     }
 
+}
+
+export const obtenerInquilinosPorUsuario = async (req, res) => {
+    const usuario_rb = req.body.usuario_rb
+    try {
+        const pool = await getConnection();
+        pool.request()
+            .input("usuario_rb", sql.Int, usuario_rb)
+            .execute(procedures.obtenerInquilinosPorUsuario, (error, result) => {
+                if (error) {
+                    res.json("ha ocurrido un error")
+                }
+                else {
+                    res.json(result.recordset)
+                }
+            })
+
+    } catch (error) {
+        res.status(500)
+        res.send(error.message)
+    }
+}
+
+export const obtenerDireccionCasa = async (req, res) => {
+    const usuario_rb = req.body.usuario_rb
+    try {
+        const pool = await getConnection();
+        pool.request()
+            .input("usuario_rb", sql.Int, usuario_rb)
+            .execute(procedures.obtenerDireccionCasa, (error, result) => {
+                if (error) {
+                    res.json("ha ocurrido un error")
+                }
+                else {
+                    res.json(result.recordset)
+                }
+            })
+    } catch (error) {
+        res.status(500)
+        res.send(error.message)
+    }
 }
 
 

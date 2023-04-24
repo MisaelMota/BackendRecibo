@@ -10,6 +10,7 @@ export default{
     dbDatabase:process.env.DB_DATABASE|| "",
     jwt_secret:process.env.JWT_SECRET,
     jwt_time_expires:process.env.JWT_TIME_EXPIRES,
-    jwt_cookie_expires:process.env.JWT_COOKIE_EXPIRES
+    jwt_cookie_expires:process.env.JWT_COOKIE_EXPIRES,
+    jwt_name:process.env.JWT_NAME
 
 }
