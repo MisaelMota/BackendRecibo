@@ -7,7 +7,8 @@ const router = Router()
 
 
 router.post('/reciboSave', validation.validate(validation.reciboModel), authController.usuarioAutenticado, postRecibo)
-router.put('/editarRecibo:id_detalle', validation.validate(validation.reciboModel), authController.usuarioAutenticado, editarRecibo)
+
+router.put('/editarRecibo/:id_cheque', validation.validate(validation.reciboModel), authController.usuarioAutenticado, editarRecibo)
 
 //rutas de autenticación
 router.post('/postUsuario', validation.validate(validation.usuarioNuevoModel), postUsuario)
@@ -22,7 +23,7 @@ router.post("/listarRecibo", listarRecibo)
 
 router.post("/usuarioPorId", usuarioPorId)
 
-router.post("/reciboPorId:id_detalle", obtenerReciboPorId)
+router.get("/reciboPorId/:id_cheque", obtenerReciboPorId)
 
 router.get("/logout", desloguearUsuario)
 
